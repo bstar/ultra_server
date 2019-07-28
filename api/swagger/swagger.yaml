@@ -1,0 +1,540 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: Ultra API
+# during dev, should point to your local machine
+host: localhost:10010
+# basePath prefixes all resource paths
+basePath: /
+#
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+
+  # BOID -------------------------
+  /boids/:
+    get:
+      description: "This endpoint returns all boids available"
+      operationId: "GetAllBoids"
+      parameters: []
+      responses:
+        200:
+          description: "An array of boids"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Boid"
+      x-swagger-router-controller: "GetAllBoids"
+
+    post:
+      description: "Add a new Boid"
+      operationId: "AddBoid"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "boid"
+        description: "the Boid to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Boid"
+      responses:
+        200:
+          description: "Successful Boid add"
+          schema:
+            $ref: "#/definitions/AddResponse"
+      x-swagger-router-controller: "AddBoid"
+
+  /swagger:
+    x-swagger-pipe: swagger_raw
+
+  /boid/{id}:
+    get:
+      description: "Retrieve a single boid by id"
+      operationId: "FindBoidById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the boid to get"
+        required: true
+        type: "string"
+        format: "int64"
+      responses:
+        200:
+          description: "Boid response"
+          schema:
+            $ref: "#/definitions/Boid"
+      x-swagger-router-controller: "FindBoidById"
+    delete:
+      description: "Delete a boid by Id"
+      operationId: "DeleteBoidById"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the plyer to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        204:
+          description: "boid deleted"
+      x-swagger-router-controller: "DeleteBoidById"
+
+    put:
+      description: "Update a single boid by id"
+      operationId: "UpdateBoidById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id of the boid being updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "updated_boid"
+        in: "body"
+        description: "the updated boid"
+        required: true
+        schema:
+          $ref: "#/definitions/Boid"
+      responses:
+        200:
+          description: "Boid updated"
+          schema:
+            $ref: "#/definitions/Boid"
+        400:
+          description: "An error has occurred!"
+      x-swagger-router-controller: "UpdateBoidById"
+
+  # ATTRIBUTES -------------------------
+  /attributes/:
+    get:
+      description: "This endpoint returns all attributes available"
+      operationId: "GetAllAttributes"
+      parameters: []
+      responses:
+        200:
+          description: "An array of attributes"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Attributes"
+      x-swagger-router-controller: "GetAllAttributes"
+
+    post:
+      description: "Add a new Attributes set"
+      operationId: "AddAttributes"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "attributes"
+        description: "the Boid's Attributes to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/Attributes"
+      responses:
+        200:
+          description: "Successful Attributes added"
+          schema:
+            $ref: "#/definitions/AddResponse"
+      x-swagger-router-controller: "AddAttributes"
+
+  /attributes/{id}:
+    get:
+      description: "Retrieve a boid's attributes by id"
+      operationId: "FindAttributesById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the attributes to get"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Attributes response"
+          schema:
+            $ref: "#/definitions/Attributes"
+      x-swagger-router-controller: "FindAttributesById"
+
+    delete:
+      description: "Delete an attributes set by Id"
+      operationId: "DeleteAttributesById"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the attributes to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        204:
+          description: "attributes deleted"
+      x-swagger-router-controller: "DeleteAttributesById"
+
+    put:
+      description: "Update a single attributes set by id"
+      operationId: "UpdateAttributesById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id of the Attributes being updated"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "updated_attributes"
+        in: "body"
+        description: "the updated attributes"
+        required: true
+        schema:
+          $ref: "#/definitions/Attributes"
+      responses:
+        200:
+          description: "Attributes updated"
+          schema:
+            $ref: "#/definitions/Attributes"
+        400:
+          description: "An error has occurred!"
+      x-swagger-router-controller: "UpdateAttributesById"
+
+# complex objects have schema definitions
+definitions:
+  Boid:
+    type: "object"
+    properties:
+      ehm_id:
+        type: ['integer','null']
+        description: "Boid EHM Id"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+      name:
+        type: ['string','null']
+        description: "Boid name"
+      att_growth:
+        type: ['integer','null']
+        description: "Technical atts growth number"   
+      technical_rating:
+        type: "integer"
+        description: "Technical atts score"    
+      physical_rating:
+        type: "integer"
+        description: "Physical atts score"    
+      mental_rating:
+        type: "integer"
+        description: "Mental atts score"    
+      combined_rating:
+        type: "integer"
+        description: "Combined atts score"    
+      mental_off_weighted:
+        type: ['number','null']
+        description: "Mental atts weighted score"    
+      mental_def_weighted:
+        type: ['number','null']
+        description: "Mental atts weighted score"    
+      mental_two_weighted:
+        type: ['number','null']
+        description: "Mental atts weighted score"    
+      physical_off_weighted:
+        type: ['number','null']
+        description: "Physical atts weighted score"  
+      physical_def_weighted:
+        type: ['number','null']
+        description: "Physical atts weighted score"  
+      physical_two_weighted:
+        type: ['number','null']
+        description: "Physical atts weighted score"  
+      technical_off_weighted:
+        type: ['number','null']
+        description: "Technical atts weighted score"  
+      technical_def_weighted:
+        type: ['number','null']
+        description: "Technical atts weighted score"  
+      technical_two_weighted:
+        type: ['number','null']
+        description: "Technical atts weighted score"  
+      combined_off_weighted:
+        type: ['number','null']
+        description: "Technical atts weighted score"
+      combined_def_weighted:
+        type: ['number','null']
+        description: "Technical atts weighted score"  
+      combined_two_weighted:
+        type: ['number','null']
+        description: "Technical atts weighted score"  
+      nation:
+        type: ['string','null']
+        description: "Boid home nation"
+      second_nation:
+        type: ['string','null']
+        description: "Boid second nation"
+      international_apps:
+        type: ['integer','null']
+        description: "International Appearances"
+      international_goals:
+        type: ['integer','null']
+        description: "International Goals"
+      international_assists:
+        type: ['integer','null']
+        description: "International Assists"
+      estimated_value:
+        type: ['string','null']
+        description: "Estimated Value"
+      club_playing:
+        type: ['string','null']
+        description: "Club Playing"
+      division_playing:
+        type: ['string','null']
+        description: "Division Playing"
+      dob:
+        type: ['string','null']
+        description: "Boid birth date"
+      club_contracted:
+        type: ['string','null']
+        description: "Club Contracted"
+      positions_short:
+        type: ['string','null']
+        description: "Positions Short"
+      stanley_cups_won:
+        type: ['integer','null']
+        description: "Stanley Cups Won"
+      birth_town:
+        type: ['string','null']
+        description: "Birth Town"
+      age:
+        type: ['integer','null']
+        description: "Age"
+      current_ability:
+        type: ['integer','null']
+        description: "Current Ability"
+      home_reputation:
+        type: ['integer','null']
+        description: "Home Reputation"
+      current_reputation:
+        type: ['integer','null']
+        description: "Current Reputation"
+      world_reputation:
+        type: ['integer','null']
+        description: "World Reputation"
+      handedness:
+        type: ['string','null']
+        description: "Handedness"
+      junior_preference:
+        type: ['string','null']
+        description: "Junior Preference"
+      player_roles:
+        type: ['string','null']
+        description: "Player Roles"
+      defensive_role:
+        type: ['integer','null']
+        description: "Defensive Role"
+      offensive_role:
+        type: ['integer','null']
+        description: "Offensive Role"
+      morale:
+        type: ['integer','null']
+        description: "Morale"
+      favorite_number:
+        type: ['integer','null']
+        description: "Favorite Number"
+      squad_number:
+        type: ['integer','null']
+        description: "Squad Number"
+        
+  Attributes:
+    type: "object"
+    properties:
+      createdAt:
+        type: "string"
+        format: "date-time"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+      boidId:
+        type: "string"
+        description: "Reference to Boid"
+      att_growth:
+        type: ['integer','null']
+        description: "Technical atts growth number"
+      player_age:
+        type: ['integer','null']
+        description: "Age"
+      technical_rating:
+        type: "integer"
+        description: "Technical atts score"    
+      physical_rating:
+        type: "integer"
+        description: "Physical atts score"    
+      mental_rating:
+        type: "integer"
+        description: "Mental atts score"    
+      combined_rating:
+        type: "integer"
+        description: "Combined atts score"    
+      physical_off_weighted:
+        type: ['number','null']
+        description: "Physical atts weighted score"  
+      physical_def_weighted:
+        type: ['number','null']
+        description: "Physical atts weighted score"  
+      physical_two_weighted:
+        type: ['number','null']
+        description: "Physical atts weighted score"  
+      technical_off_weighted:
+        type: ['number','null']
+        description: "Technical atts weighted score"  
+      technical_def_weighted:
+        type: ['number','null']
+        description: "Technical atts weighted score"  
+      technical_two_weighted:
+        type: ['number','null']
+        description: "Technical atts weighted score"  
+      combined_off_weighted:
+        type: ['number','null']
+        description: "Technical atts weighted score"
+      combined_def_weighted:
+        type: ['number','null']
+        description: "Technical atts weighted score"  
+      combined_two_weighted:
+        type: ['number','null']
+        description: "Technical atts weighted score"  
+      game_date:
+        type: ['string','null']
+      Loyaltypressure:
+        type: ['integer','null']
+      professionalism:
+          type: ['integer','null']
+      sportsmanship:
+          type: ['integer','null']
+      temperment:
+          type: ['integer','null']
+      consistency:
+          type: ['integer','null']
+      decisions:
+          type: ['integer','null']
+      dirtiness:
+          type: ['integer','null']
+      potential_ability:
+          type: ['integer','null']
+      adaptability:
+          type: ['integer','null']
+      ambition:
+          type: ['integer','null']
+      important_matches:
+          type: ['integer','null']
+      pass_tendency:
+          type: ['integer','null']
+      fighting:
+          type: ['integer','null']
+      injury_proneness:
+          type: ['integer','null']
+      natural_fitness:
+          type: ['integer','null']
+      agitation:
+          type: ['integer','null']
+      one_on_ones:
+          type: ['integer','null']
+      versatility:
+          type: ['integer','null']
+      goaltender:
+          type: ['integer','null']
+      left_defence:
+          type: ['integer','null']
+      right_defence:
+          type: ['integer','null']
+      left_wing:
+          type: ['integer','null']
+      right_wing:
+          type: ['integer','null']
+      center:
+          type: ['integer','null']
+      aggression:
+          type: ['integer','null']
+      anticipation:
+          type: ['integer','null']
+      bravery:
+          type: ['integer','null']
+      creativity:
+          type: ['integer','null']
+      determination:
+          type: ['integer','null']
+      flair:
+          type: ['integer','null']
+      influence:
+          type: ['integer','null']
+      teamwork:
+          type: ['integer','null']
+      work_rate:
+          type: ['integer','null']
+      acceleration:
+          type: ['integer','null']
+      agility:
+          type: ['integer','null']
+      balance:
+          type: ['integer','null']
+      speed:
+          type: ['integer','null']
+      stamina:
+          type: ['integer','null']
+      strength:
+          type: ['integer','null']
+      checking:
+          type: ['integer','null']
+      deflections:
+          type: ['integer','null']
+      deking:
+          type: ['integer','null']
+      faceoffs:
+          type: ['integer','null']
+      hitting:
+          type: ['integer','null']
+      off_the_puck:
+          type: ['integer','null']
+      passing:
+          type: ['integer','null']
+      pokecheck:
+          type: ['integer','null']
+      positioning:
+          type: ['integer','null']
+      slapshot:
+          type: ['integer','null']
+      stickhandling:
+          type: ['integer','null']
+      wristshot:
+          type: ['integer','null']
+      blocker:
+          type: ['integer','null']
+      glove:
+          type: ['integer','null']
+      rebound_control:
+          type: ['integer','null']
+      recovery:
+          type: ['integer','null']
+      reflexes:
+          type: ['integer','null']
+
+  AddResponse:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "New record added"

@@ -1,0 +1,17 @@
+{
+  "development": {
+    "dialect": "sqlite",
+    "storage": "/Users/bob/Documents/db.development.sqlite",
+    "logging": false
+  },
+  "test": {
+    "dialect": "sqlite",
+    "storage": "/Users/bob/Documents/db.development.sqlite",
+    "logging": false
+  },
+  "production": {
+    "dialect": "sqlite",
+    "storage": "/Users/bob/Documents/db.development.sqlite",
+    "logging": false
+  }
+}

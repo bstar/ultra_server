@@ -1,0 +1,30 @@
+{
+  "name": "ultra-hockey-api",
+  "version": "0.0.2",
+  "private": true,
+  "description": "Ultra Hockey API",
+  "keywords": [],
+  "author": "Robert DiNicolas",
+  "license": "",
+  "main": "app.js",
+  "dependencies": {
+    "axios": "^0.15.2",
+    "cors": "^2.8.4",
+    "elasticsearch": "^12.1.3",
+    "electron-log": "^2.2.17",
+    "express": "^4.15.2",
+    "sequelize": "^4.38.0",
+    "sqlite3": "^4.0.2",
+    "swagger-express-mw": "^0.1.0"
+  },
+  "devDependencies": {
+    "nodejs-dashboard": "^0.1.2",
+    "should": "^7.1.0",
+    "supertest": "^1.0.0"
+  },
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodejs-dashboard node app.js",
+    "test": "swagger project test"
+  }
+}
