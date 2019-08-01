@@ -54,8 +54,9 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: DataTypes.DATE,
   });
   
-  Boid.associate = (models) => {
+  Boid.associate = models => {
     Boid.hasMany(models.attributes);
+    Boid.hasMany(models.tag);
   };
   
   return Boid;

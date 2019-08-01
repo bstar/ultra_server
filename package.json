@@ -15,7 +15,7 @@
     "express": "^4.15.2",
     "sequelize": "^4.38.0",
     "sqlite3": "^4.0.2",
-    "swagger-express-mw": "^0.1.0"
+    "swagger-express-mw": "^0.7.0"
   },
   "devDependencies": {
     "nodejs-dashboard": "^0.1.2",
