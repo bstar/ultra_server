@@ -163,8 +163,8 @@ paths:
         in: "path"
         description: "ID of the attributes to get"
         required: true
-        type: "integer"
-        format: "int64"
+        type: "string"
+        format: "string"
       responses:
         200:
           description: "Attributes response"
@@ -581,79 +581,79 @@ definitions:
         type: string
         x-nullable: true
       Loyaltypressure:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       professionalism:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       sportsmanship:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       temperment:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       consistency:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       decisions:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       dirtiness:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       potential_ability:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       adaptability:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       ambition:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       important_matches:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       pass_tendency:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       fighting:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       injury_proneness:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       natural_fitness:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       agitation:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       one_on_ones:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       versatility:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       goaltender:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       left_defence:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       right_defence:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       left_wing:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       right_wing:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       center:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       aggression:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       anticipation:
         type: integer
@@ -698,7 +698,7 @@ definitions:
         type: integer
         x-nullable: true
       checking:
-        type: integer
+        type: ['integer','null']
         x-nullable: true
       deflections:
         type: integer

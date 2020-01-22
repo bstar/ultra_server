@@ -1,11 +1,12 @@
 'use strict';
 const models = require('../models')
 
-function FindById(req, res) {
+// finds by boidId
+const FindAttributesById = (req, res) => {
   var params = req.swagger.params;
 
-  models.attribute.find({
-      where: { id: params.id.value }
+  models.attributes.find({
+      where: { boidId: params.id.value }
     })
     .then((attribute) => {
       res.json(attribute);
@@ -13,5 +14,5 @@ function FindById(req, res) {
 }
 
 module.exports = {
-  FinddById : FindById
+  FindAttributesById,
 }

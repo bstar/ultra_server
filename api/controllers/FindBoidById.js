@@ -1,12 +1,15 @@
 'use strict';
-const models = require('../models')
+const models = require('../models');
 
-function FindBoidById(req, res) {
-  var params = req.swagger.params;
+function FindBoidById (req, res) {
+  const params = req.swagger.params;
+  const queryParams = req.query;
+  const noAtts = queryParams.noatts ? JSON.parse(queryParams.noatts) : false;
+  const include = !noAtts && [{ model: models.attributes }];
 
   models.boid.find({
       where: { id: params.id.value },
-      include: [{ model: models.attributes }]
+      include,
     })
     .then((boid) => {
       res.json(boid);
@@ -15,8 +18,6 @@ function FindBoidById(req, res) {
 
 function Get (id, cb) {
       
-  console.log(id);
-  
   models.boid.findOne({
       where: { id: id },
       limit: 1,
@@ -33,6 +34,6 @@ function Get (id, cb) {
 }
 
 module.exports = {
-  FindBoidById : FindBoidById,
-  Get: Get,
+  FindBoidById,
+  Get,
 }
