@@ -1,17 +1,29 @@
 'use strict';
 const models = require('../models');
+const LRU = require("lru-cache");
+const options = { max: 500 };
+const cache = new LRU(options);
 
 const FindBoidById = (req, res) => {
 
   const params = req.swagger.params;
+  const id = params.id.value;
+  const key = `boid:${id}`;
+  const content = cache.get(key);
+
+  if (content) {
+    console.info('cache-hit: ', key);
+    return res.json(content);
+  }
 
   models.boid.find({
-      where: { id: params.id.value },
+      where: { id },
     })
     .then(boid => {
+      cache.set(key, boid);
       res.json(boid);
     });
-}
+};
 
 const Get = (id, cb) => {
       
@@ -27,9 +39,9 @@ const Get = (id, cb) => {
       
       cb(null, boid);
     })
-}
+};
 
 module.exports = {
   FindBoidById,
   Get,
-}
+};

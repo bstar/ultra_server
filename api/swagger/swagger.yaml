@@ -69,7 +69,7 @@ paths:
         description: "ID of the boid to get"
         required: true
         type: "string"
-        format: "int64"
+        format: "string"
       responses:
         200:
           description: "Boid response"
