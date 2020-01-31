@@ -1,8 +1,8 @@
-# Treehouse API
+# Ultra Server API
 
 ### Stack
 
-Treehouse API uses the following technologies:
+Ultra Server API uses the following technologies:
 * [Swagger Framework] - framework for standardizing rest features
 * [Swagger UI] - interactive rest tool & schema reference
 * [Exress] - modular node.js framework
@@ -12,8 +12,8 @@ Treehouse API uses the following technologies:
 ### Install
 To get the api running, follow the following steps.  Note that this codebase has been tested on node.js versions `v7.8.0` and greater.
 ```sh
-$ git clone http://github.com/
-$ cd treehouse-api
+$ git clone https://github.com/bstar/ultra_server.git
+$ cd ultra-server
 $ npm install
 $ npm start
 ```
@@ -50,6 +50,15 @@ Boids **(get/post)**
 Boids **(get/edit/delete)**
 ```sh
 /boid/:id
+```
+
+Attributes **(get/post)**
+```sh
+/attributes
+```
+Attributes **(get/edit/delete)**
+```sh
+/attribute/:id
 ```
 Swagger-ui
 ```sh
