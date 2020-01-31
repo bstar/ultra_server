@@ -1,27 +1,23 @@
 'use strict';
 const models = require('../models');
 
-function FindBoidById (req, res) {
+const FindBoidById = (req, res) => {
+
   const params = req.swagger.params;
-  const queryParams = req.query;
-  const noAtts = queryParams.noatts ? JSON.parse(queryParams.noatts) : false;
-  const include = !noAtts && [{ model: models.attributes }];
 
   models.boid.find({
       where: { id: params.id.value },
-      include,
     })
-    .then((boid) => {
+    .then(boid => {
       res.json(boid);
     });
 }
 
-function Get (id, cb) {
+const Get = (id, cb) => {
       
   models.boid.findOne({
-      where: { id: id },
+      where: { id },
       limit: 1,
-      // include: [{ model: models.attributes }],
     })
     .then(boid => {
       

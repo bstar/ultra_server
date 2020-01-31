@@ -1,0 +1,1 @@
+DB_PATH="../db" DEBUG=express:* SERVERPORT=5151 npm start
