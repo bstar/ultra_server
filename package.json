@@ -24,7 +24,7 @@
     "supertest": "^1.0.0"
   },
   "scripts": {
-    "start": "node app.js",
+    "start": "DB_PATH=\"../db\" DEBUG=express:* SERVERPORT=5151 node app.js",
     "dev": "nodejs-dashboard node app.js",
     "test": "swagger project test"
   }

@@ -6,8 +6,8 @@ const cache = new LRU(options);
 
 
 const processFilters = filter => {
-  var filters = filter.split("|");
-  var filterObj = {};
+  const filters = filter.split("|");
+  const filterObj = {};
 
   for (var i = 0; i < filters.length; i++) {
     const filter = filters[i];
