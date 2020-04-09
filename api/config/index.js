@@ -1,4 +1,4 @@
-const dbPath = process.env.DB_PATH || '/Users/bob/Documents'; // TODO more sensiblle default
+const dbPath = process.env.DB_PATH || '../db'; // TODO more sensiblle default
 const league = process.env.LEAGUE || 'development';
 
 module.exports = {
