@@ -16,7 +16,8 @@ const processFilters = filter => {
   const filters = filter.split("|");
   const filterObj = {};
 
-  filters.map((filter) => {
+  filters.map(filter => {
+
     const match = filter.match(/(.*):(.*)/);
     const matchKey = match[1];
     const matchValue = match[2];
@@ -48,7 +49,7 @@ const GetAllBoids = (req, res) => {
       order,
       include,
     })
-    .then((boids) => {
+    .then(boids => {
       res.json(boids);
     });
 }

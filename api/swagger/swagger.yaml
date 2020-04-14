@@ -329,6 +329,10 @@ definitions:
         type: string
         x-nullable: true
         description: "Boid name"
+      age_over:
+        type: ['number','null']
+        x-nullable: true
+        description: "COM score divided by age"
       att_growth:
         type: integer
         x-nullable: true
@@ -350,51 +354,51 @@ definitions:
         x-nullable: true
         description: "Combined atts score"    
       mental_off_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Mental atts weighted score"    
       mental_def_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Mental atts weighted score"    
       mental_two_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Mental atts weighted score"    
       physical_off_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Physical atts weighted score"  
       physical_def_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Physical atts weighted score"  
       physical_two_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Physical atts weighted score"  
       technical_off_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Technical atts weighted score"  
       technical_def_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Technical atts weighted score"  
       technical_two_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Technical atts weighted score"  
       combined_off_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Technical atts weighted score"
       combined_def_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Technical atts weighted score"  
       combined_two_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Technical atts weighted score"  
       nation:
@@ -521,6 +525,10 @@ definitions:
         type: integer
         x-nullable: true
         description: "Technical atts growth number"
+      age_over:
+        type: ['number','null']
+        x-nullable: true
+        description: "COM score divided by age"
       player_age:
         type: integer
         x-nullable: true
@@ -542,39 +550,39 @@ definitions:
         x-nullable: true
         description: "Combined atts score"    
       physical_off_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Physical atts weighted score"  
       physical_def_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Physical atts weighted score"  
       physical_two_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Physical atts weighted score"  
       technical_off_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Technical atts weighted score"  
       technical_def_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Technical atts weighted score"  
       technical_two_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Technical atts weighted score"  
       combined_off_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Technical atts weighted score"
       combined_def_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Technical atts weighted score"  
       combined_two_weighted:
-        type: number
+        type: ['number','null']
         x-nullable: true
         description: "Technical atts weighted score"  
       game_date:

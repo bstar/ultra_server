@@ -5,6 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     boidId: DataTypes.STRING,
     game_date: DataTypes.STRING,
     att_growth: DataTypes.INTEGER,
+    age_over: DataTypes.REAL,
     player_age: DataTypes.INTEGER,
     technical_rating: DataTypes.INTEGER,
     mental_rating: DataTypes.INTEGER,

@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   var Boid = sequelize.define('boid', {
     id: { type: DataTypes.STRING, primaryKey: true, autoIncrement: false },
     ehm_id: DataTypes.INTEGER,
+    age_over: DataTypes.REAL,
     att_growth: DataTypes.INTEGER,
     technical_rating: DataTypes.INTEGER,
     mental_rating: DataTypes.INTEGER,
