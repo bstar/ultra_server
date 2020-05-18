@@ -11,16 +11,18 @@ const FindBoidById = (req, res) => {
   const key = `boid:${id}`;
   const content = cache.get(key);
 
-  if (content) {
-    console.info('cache-hit: ', key);
-    return res.json(content);
-  }
+  // TODO need api to clear cache per key
+  // if (content) {
+  //   console.info('cache-hit: ', key);
+  //   return res.json(content);
+  // }
 
   models.boid.find({
       where: { id },
+      include: [{ model: models.list }],
     })
     .then(boid => {
-      cache.set(key, boid);
+      // cache.set(key, boid);
       res.json(boid);
     });
 };

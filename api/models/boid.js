@@ -12,17 +12,9 @@ module.exports = (sequelize, DataTypes) => {
     combined_rating: DataTypes.INTEGER,
     
     mental_off_weighted: DataTypes.REAL,
-    mental_def_weighted: DataTypes.REAL,
-    mental_two_weighted: DataTypes.REAL,
     physical_off_weighted: DataTypes.REAL,
-    physical_def_weighted: DataTypes.REAL,
-    physical_two_weighted: DataTypes.REAL,
     technical_off_weighted: DataTypes.REAL,
-    technical_def_weighted: DataTypes.REAL,
-    technical_two_weighted: DataTypes.REAL,
     combined_off_weighted: DataTypes.REAL,
-    combined_def_weighted: DataTypes.REAL,
-    combined_two_weighted: DataTypes.REAL,
     
     name: DataTypes.STRING,
     dob: DataTypes.STRING,
@@ -40,25 +32,28 @@ module.exports = (sequelize, DataTypes) => {
     birth_town: DataTypes.STRING,
     age: DataTypes.INTEGER,
     current_ability: DataTypes.INTEGER,
-    // home_reputation: DataTypes.INTEGER,
-    // current_reputation: DataTypes.INTEGER,
-    // world_reputation: DataTypes.INTEGER,
     handedness: DataTypes.STRING,
     junior_preference: DataTypes.STRING,
     player_roles: DataTypes.STRING,
-    // defensive_role: DataTypes.INTEGER,
-    // offensive_role: DataTypes.INTEGER,
     morale: DataTypes.INTEGER,
     favorite_number: DataTypes.INTEGER,
     squad_number: DataTypes.INTEGER,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
+
+    // Hidden reputation stats
+    // home_reputation: DataTypes.INTEGER,
+    // current_reputation: DataTypes.INTEGER,
+    // world_reputation: DataTypes.INTEGER,
+    // defensive_role: DataTypes.INTEGER,
+    // offensive_role: DataTypes.INTEGER,
   });
   
   Boid.associate = models => {
     Boid.hasMany(models.attributes);
-    Boid.hasMany(models.tag);
+    // Boid.hasMany(models.tag); // TODO kill tagging
+    Boid.belongsToMany(models.list, { through: models.listdata });
   };
-  
+
   return Boid;
 };

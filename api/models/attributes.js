@@ -13,17 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     combined_rating: DataTypes.INTEGER,
     
     mental_off_weighted: DataTypes.REAL,
-    mental_def_weighted: DataTypes.REAL,
-    mental_two_weighted: DataTypes.REAL,
     physical_off_weighted: DataTypes.REAL,
-    physical_def_weighted: DataTypes.REAL,
-    physical_two_weighted: DataTypes.REAL,
     technical_off_weighted: DataTypes.REAL,
-    technical_def_weighted: DataTypes.REAL,
-    technical_two_weighted: DataTypes.REAL,
     combined_off_weighted: DataTypes.REAL,
-    combined_def_weighted: DataTypes.REAL,
-    combined_two_weighted: DataTypes.REAL,
     
     loyalty: DataTypes.INTEGER,
     pressure: DataTypes.INTEGER,

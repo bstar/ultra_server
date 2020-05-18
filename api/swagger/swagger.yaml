@@ -3,7 +3,7 @@ info:
   version: "0.0.1"
   title: Ultra API
 # during dev, should point to your local machine
-host: localhost:10010
+host: localhost:5151
 # basePath prefixes all resource paths
 basePath: /
 #
@@ -17,9 +17,8 @@ consumes:
 # format of the responses to the client (Accepts)
 produces:
   - application/json
+
 paths:
-
-
   /swagger:
     x-swagger-pipe: swagger_raw
 
@@ -76,6 +75,7 @@ paths:
           schema:
             $ref: "#/definitions/Boid"
       x-swagger-router-controller: "FindBoidById"
+
     delete:
       description: "Delete a boid by Id"
       operationId: "DeleteBoidById"
@@ -310,14 +310,176 @@ paths:
           description: "An error has occurred!"
       x-swagger-router-controller: "UpdateTagById"
 
-# complex objects have schema definitions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  # LISTS -------------------------
+  /lists/:
+    get:
+      description: "This endpoint returns all lists available"
+      operationId: "GetAllLists"
+      parameters: []
+      responses:
+        200:
+          description: "An array of lists"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/List"
+      x-swagger-router-controller: "GetAllLists"
+
+    post:
+      description: "Add a new List"
+      operationId: "AddList"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "list"
+        description: "the List to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/List"
+      responses:
+        200:
+          description: "Successful List added"
+          schema:
+            $ref: "#/definitions/AddResponse"
+      x-swagger-router-controller: "AddList"
+
+  /list/{id}:
+    get:
+      description: "Retrieve a single list by id"
+      operationId: "FindListById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the list to get"
+        required: true
+        type: "string"
+        format: "string"
+      responses:
+        200:
+          description: "List response"
+          schema:
+            $ref: "#/definitions/List"
+      x-swagger-router-controller: "FindListById"
+
+    delete:
+      description: "Delete a list by Id"
+      operationId: "DeleteListById"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the List to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        204:
+          description: "list deleted"
+      x-swagger-router-controller: "List"
+
+  /list/{id}/boids:
+    get:
+      description: "Retrieve boids from a list"
+      operationId: "FindBoidsByListId"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the list to get"
+          required: true
+          type: "string"
+          format: "string"
+      responses:
+        200:
+          description: "An array of boids by listId"
+          schema:
+            $ref: "#/definitions/Boids"
+      x-swagger-router-controller: "FindBoidsByListId"
+
+  /list/{id}/boids/add:
+    post:
+      description: "Add boids to List"
+      operationId: "AddBoidsToList"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of the list to reference"
+          required: true
+          type: "string"
+          format: "string"
+        - name: "boidIds"
+          in: "body"
+          description: "IDs of the Boids to assign"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        200:
+          description: "Successfuly Added Boid to List"
+          schema:
+            type: "string"
+            # $ref: "#/definitions/AddResponse"
+      x-swagger-router-controller: "AddBoidsToList"
+
+  /list/{listId}/boid/{boidId}/rank/{rank}:
+    put:
+      description: "Updates boid's rank in scoped list"
+      operationId: "UpdateBoidRank"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "listId"
+          in: "path"
+          description: "ID of the list to get"
+          required: true
+          type: "string"
+          format: "string"
+        - name: "boidId"
+          in: "path"
+          description: "ID of the boid to get"
+          required: true
+          type: "string"
+          format: "string"
+        - name: "rank"
+          in: "path"
+          description: "Rank of the boid in scoped list"
+          required: true
+          type: "string"
+          format: "string"
+      responses:
+        200:
+          description: "Successful Boid rank update"
+          schema:
+            $ref: "#/definitions/AddResponse"
+      x-swagger-router-controller: UpdateBoidRank
+
+
 definitions:
   Boid:
     type: object
     properties:
       ehm_id:
         type: integer
-        x-nullable: true
         description: "Boid EHM Id"
       createdAt:
         type: string
@@ -327,435 +489,319 @@ definitions:
         format: date-time
       name:
         type: string
-        x-nullable: true
         description: "Boid name"
       age_over:
         type: ['number','null']
-        x-nullable: true
         description: "COM score divided by age"
       att_growth:
         type: integer
-        x-nullable: true
         description: "Technical atts growth number"   
       technical_rating:
         type: integer
-        x-nullable: true
         description: "Technical atts score"    
       physical_rating:
         type: integer
-        x-nullable: true
         description: "Physical atts score"    
       mental_rating:
         type: integer
-        x-nullable: true
         description: "Mental atts score"    
       combined_rating:
         type: integer
-        x-nullable: true
         description: "Combined atts score"    
       mental_off_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Mental atts weighted score"    
       mental_def_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Mental atts weighted score"    
       mental_two_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Mental atts weighted score"    
       physical_off_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Physical atts weighted score"  
       physical_def_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Physical atts weighted score"  
       physical_two_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Physical atts weighted score"  
       technical_off_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Technical atts weighted score"  
       technical_def_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Technical atts weighted score"  
       technical_two_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Technical atts weighted score"  
       combined_off_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Technical atts weighted score"
       combined_def_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Technical atts weighted score"  
       combined_two_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Technical atts weighted score"  
       nation:
         type: string
-        x-nullable: true
         description: "Boid home nation"
       second_nation:
         type: string
-        x-nullable: true
         description: "Boid second nation"
       international_apps:
         type: integer
-        x-nullable: true
         description: "International Appearances"
       international_goals:
         type: integer
-        x-nullable: true
         description: "International Goals"
       international_assists:
         type: integer
-        x-nullable: true
         description: "International Assists"
       estimated_value:
         type: ['string','null']
-        x-nullable: true
         description: "Estimated Value"
       club_playing:
         type: string
-        x-nullable: true
         description: "Club Playing"
       division_playing:
         type: string
-        x-nullable: true
         description: "Division Playing"
       dob:
         type: string
-        x-nullable: true
         description: "Boid birth date"
       club_contracted:
         type: string
-        x-nullable: true
         description: "Club Contracted"
       positions_short:
         type: string
-        x-nullable: true
         description: "Positions Short"
       stanley_cups_won:
         type: integer
-        x-nullable: true
         description: "Stanley Cups Won"
       birth_town:
         type: string
-        x-nullable: true
         description: "Birth Town"
       age:
         type: integer
-        x-nullable: true
         description: "Age"
       current_ability:
         type: ['integer','null']
-        x-nullable: true
         description: "Current Ability"
       home_reputation:
         type: integer
-        x-nullable: true
         description: "Home Reputation"
       current_reputation:
         type: integer
-        x-nullable: true
         description: "Current Reputation"
       world_reputation:
         type: integer
-        x-nullable: true
         description: "World Reputation"
       handedness:
         type: string
-        x-nullable: true
         description: "Handedness"
       junior_preference:
         type: string
-        x-nullable: true
         description: "Junior Preference"
       player_roles:
         type: string
-        x-nullable: true
         description: "Player Roles"
       defensive_role:
         type: integer
-        x-nullable: true
         description: "Defensive Role"
       offensive_role:
         type: integer
-        x-nullable: true
         description: "Offensive Role"
       morale:
         type: integer
-        x-nullable: true
         description: "Morale"
       favorite_number:
         type: ['integer','null']
-        x-nullable: true
         description: "Favorite Number"
       squad_number:
         type: integer
-        x-nullable: true
         description: "Squad Number"
+
+  Boids:
+    type: array
+    items:
+      $ref: "#/definitions/Boid"
         
   Attributes:
     type: "object"
     properties:
       createdAt:
         type: string
-        x-nullable: true
         format: date-time
       updatedAt:
         type: string
-        x-nullable: true
         format: date-time
       boidId:
         type: string
-        x-nullable: true
         description: "Reference to Boid"
       att_growth:
         type: integer
-        x-nullable: true
         description: "Technical atts growth number"
       age_over:
         type: ['number','null']
-        x-nullable: true
         description: "COM score divided by age"
       player_age:
         type: integer
-        x-nullable: true
         description: "Age"
       technical_rating:
         type: integer
-        x-nullable: true
         description: "Technical atts score"    
       physical_rating:
         type: integer
-        x-nullable: true
         description: "Physical atts score"    
       mental_rating:
         type: integer
-        x-nullable: true
         description: "Mental atts score"    
       combined_rating:
         type: integer
-        x-nullable: true
         description: "Combined atts score"    
       physical_off_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Physical atts weighted score"  
       physical_def_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Physical atts weighted score"  
       physical_two_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Physical atts weighted score"  
       technical_off_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Technical atts weighted score"  
       technical_def_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Technical atts weighted score"  
       technical_two_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Technical atts weighted score"  
       combined_off_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Technical atts weighted score"
       combined_def_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Technical atts weighted score"  
       combined_two_weighted:
         type: ['number','null']
-        x-nullable: true
         description: "Technical atts weighted score"  
       game_date:
         type: string
-        x-nullable: true
       Loyaltypressure:
         type: ['integer','null']
-        x-nullable: true
       professionalism:
         type: ['integer','null']
-        x-nullable: true
       sportsmanship:
         type: ['integer','null']
-        x-nullable: true
       temperment:
         type: ['integer','null']
-        x-nullable: true
       consistency:
         type: ['integer','null']
-        x-nullable: true
       decisions:
         type: ['integer','null']
-        x-nullable: true
       dirtiness:
         type: ['integer','null']
-        x-nullable: true
       potential_ability:
         type: ['integer','null']
-        x-nullable: true
       adaptability:
         type: ['integer','null']
-        x-nullable: true
       ambition:
         type: ['integer','null']
-        x-nullable: true
       important_matches:
         type: ['integer','null']
-        x-nullable: true
       pass_tendency:
         type: ['integer','null']
-        x-nullable: true
       fighting:
         type: ['integer','null']
-        x-nullable: true
       injury_proneness:
         type: ['integer','null']
-        x-nullable: true
       natural_fitness:
         type: ['integer','null']
-        x-nullable: true
       agitation:
         type: ['integer','null']
-        x-nullable: true
       one_on_ones:
         type: ['integer','null']
-        x-nullable: true
       versatility:
         type: ['integer','null']
-        x-nullable: true
       goaltender:
         type: ['integer','null']
-        x-nullable: true
       left_defence:
         type: ['integer','null']
-        x-nullable: true
       right_defence:
         type: ['integer','null']
-        x-nullable: true
       left_wing:
         type: ['integer','null']
-        x-nullable: true
       right_wing:
         type: ['integer','null']
-        x-nullable: true
       center:
         type: ['integer','null']
-        x-nullable: true
       aggression:
         type: ['integer','null']
-        x-nullable: true
       anticipation:
         type: integer
-        x-nullable: true
       bravery:
         type: integer
-        x-nullable: true
       creativity:
         type: integer
-        x-nullable: true
       determination:
         type: integer
-        x-nullable: true
       flair:
         type: integer
-        x-nullable: true
       influence:
         type: integer
-        x-nullable: true
       teamwork:
         type: integer
-        x-nullable: true
       work_rate:
         type: integer
-        x-nullable: true
       acceleration:
         type: integer
-        x-nullable: true
       agility:
         type: integer
-        x-nullable: true
       balance:
         type: integer
-        x-nullable: true
       speed:
         type: integer
-        x-nullable: true
       stamina:
         type: integer
-        x-nullable: true
       strength:
         type: integer
-        x-nullable: true
       checking:
         type: ['integer','null']
-        x-nullable: true
       deflections:
         type: integer
-        x-nullable: true
       deking:
         type: integer
-        x-nullable: true
       faceoffs:
         type: integer
-        x-nullable: true
       hitting:
         type: integer
-        x-nullable: true
       off_the_puck:
         type: integer
-        x-nullable: true
       passing:
         type: integer
-        x-nullable: true
       pokecheck:
         type: integer
-        x-nullable: true
       positioning:
         type: integer
-        x-nullable: true
       slapshot:
         type: integer
-        x-nullable: true
       stickhandling:
         type: integer
-        x-nullable: true
       wristshot:
         type: integer
-        x-nullable: true
       blocker:
         type: integer
-        x-nullable: true
       glove:
         type: integer
-        x-nullable: true
       rebound_control:
         type: integer
-        x-nullable: true
       recovery:
         type: integer
-        x-nullable: true
       reflexes:
         type: integer
-        x-nullable: true
 
   Tag:
     type: object
@@ -766,22 +812,63 @@ definitions:
       updatedAt:
         type: string
         format: date-time
-      boidId:
-        type: string
-        x-nullable: true
-        description: "Reference to Boid"
       name:
         type: string
-        x-nullable: true
         description: "Tag name"
+      global:
+        type: boolean
+        description: "Is tag global?"
       description:
         type: string
-        x-nullable: true
         description: "Tag description"
+
+  List:
+    type: object
+    properties:
+      createdAt:
+        type: ['string','null']
+        format: date-time
+      updatedAt:
+        type: ['string','null']
+        format: date-time
+      name:
+        type: ['string','null']
+        description: "List name"
+      type:
+        type: ['string','null']
+        description: "List classification"
+      category:
+        type: ['string','null']
+        description: "List category"
+      key:
+        type: ['string','null']
+        description: "List key"
+      description:
+        type: ['string','null']
+        description: "List description"
+
+  Listdata:
+    type: "object"
+    properties:
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+      boidId:
+        type: string
+        description: "Reference to Boid"
+      listId:
+        type: integer
+        description: "Reference to a List"
+      rank:
+        type: integer
+        description: "Boid rank"
 
   AddResponse:
     type: "object"
     properties:
       id:
-        type: "string"
+        type: ['string','integer']
         description: "New record added"

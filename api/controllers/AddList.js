@@ -8,6 +8,11 @@ const AddList = (req, res) => {
 
   models.list.create(params).then(list => {
     res.json(list);
+    // list.addBoid('MTMyOTVDYW5hZGExLzEzLzE5OTc', { through: { rank: 5 } }).then(() => {
+    //   res.json(list);
+    // })
+  }, {
+    include: [models.boid],
   });
 }
 

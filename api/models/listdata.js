@@ -2,13 +2,13 @@
 
 module.exports = (sequelize, DataTypes) => {
 
-  const BoidList = sequelize.define('boidList', {
+  const Listdata = sequelize.define('listdata', {
     boidId: DataTypes.STRING,
-    listId: DataTypes.STRING,
+    listId: DataTypes.INTEGER,
     rank: DataTypes.INTEGER,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
   });
  
-  return BoidList;
+  return Listdata;
 };

@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   
   Tag.associate = models => {
-    Tag.belongsTo(models.boid);
+    // Tag.belongsTo(models.boid);
   };
  
   return Tag;

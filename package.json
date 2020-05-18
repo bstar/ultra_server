@@ -26,6 +26,7 @@
   "scripts": {
     "start": "DB_PATH=\"../db\" LEAGUE=ESL DEBUG=express:* SERVERPORT=5151 node app.js",
     "dev": "nodejs-dashboard node app.js",
-    "test": "swagger project test"
+    "test": "swagger project test",
+    "validate": "swagger validate api/swagger/swagger.yaml"
   }
 }
