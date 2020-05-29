@@ -310,21 +310,6 @@ paths:
           description: "An error has occurred!"
       x-swagger-router-controller: "UpdateTagById"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   # LISTS -------------------------
   /lists/:
     get:
@@ -338,7 +323,7 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/List"
-      x-swagger-router-controller: "GetAllLists"
+      x-swagger-router-controller: "List"
 
     post:
       description: "Add a new List"
@@ -358,6 +343,20 @@ paths:
           schema:
             $ref: "#/definitions/AddResponse"
       x-swagger-router-controller: "AddList"
+
+  /lists/personal/:
+    get:
+      description: "This endpoint returns all personal lists belonging to logged in user"
+      operationId: "GetPersonalLists"
+      parameters: []
+      responses:
+        200:
+          description: "An array of personal lists"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/List"
+      x-swagger-router-controller: "List"
 
   /list/{id}:
     get:
@@ -473,6 +472,108 @@ paths:
             $ref: "#/definitions/AddResponse"
       x-swagger-router-controller: UpdateBoidRank
 
+  # USERS -------------------------
+  /users/:
+    get:
+      description: "This endpoint returns all users available"
+      operationId: "GetAllUsers"
+      parameters: []
+      responses:
+        200:
+          description: "An array of users"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+      x-swagger-router-controller: "User"
+
+    post:
+      description: "Add a new User"
+      operationId: "AddUser"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "user"
+        description: "the User to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: "Successful User added"
+          schema:
+            $ref: "#/definitions/AddResponse"
+      x-swagger-router-controller: "User"
+
+  /user/{id}:
+    get:
+      description: "Retrieve a single user by id"
+      operationId: "FindUserById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of the user to get"
+        required: true
+        type: "string"
+        format: "string"
+      responses:
+        200:
+          description: "User response"
+          schema:
+            $ref: "#/definitions/User"
+      x-swagger-router-controller: "FindUserById"
+
+    delete:
+      description: "Delete a user by Id"
+      operationId: "DeleteUserById"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id of the User to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        204:
+          description: "user deleted"
+      x-swagger-router-controller: "User"
+
+  /register/:
+    post:
+      description: "Register a new User"
+      operationId: "Register"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "user"
+        description: "the User to be registered"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: "Successful User registration"
+          schema:
+            $ref: "#/definitions/AddResponse"
+      x-swagger-router-controller: "User"
+
+  /login/:
+    post:
+      description: "Logs in a user"
+      operationId: "Login"
+      parameters: []
+      responses:
+        200:
+          description: "Login user"
+          schema:
+            type: "object"
+            items:
+              $ref: "#/definitions/Jwt"
+      x-swagger-router-controller: "User"
 
 definitions:
   Boid:
@@ -834,6 +935,9 @@ definitions:
       name:
         type: ['string','null']
         description: "List name"
+      userName: 
+        type: ['string','null']
+        description: "Owner of list"
       type:
         type: ['string','null']
         description: "List classification"
@@ -865,6 +969,41 @@ definitions:
       rank:
         type: integer
         description: "Boid rank"
+
+  User:
+    type: object
+    properties:
+      createdAt:
+        type: ['string','null']
+        format: date-time
+      updatedAt:
+        type: ['string','null']
+        format: date-time
+      name:
+        type: ['string','null']
+        description: "User name"
+      password:
+        type: ['string','null']
+        description: "User password"
+      type:
+        type: ['string','null']
+        description: "User type"
+      team_id:
+        type: ['string','null']
+        description: "Team id"
+      email:
+        type: ['string','null']
+        description: "User email"
+      ipaddress:
+        type: ['string','null']
+        description: "User IP address"
+
+  Jwt:
+    type: object
+    properties:
+      token:
+        type: ['string','null']
+        description: "Jwt token"
 
   AddResponse:
     type: "object"

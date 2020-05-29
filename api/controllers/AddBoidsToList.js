@@ -6,7 +6,7 @@ const AddBoidsToList = (req, res) => {
 
   const params = req.swagger.params;
   const id = params.id.value;
-  const boidIds = JSON.parse(params.boidIds.value).boidIds;
+  const boidIds = params.boidIds.value.boidIds;
 
   models.list.find({
       where: { id },
