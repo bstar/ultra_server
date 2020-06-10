@@ -342,7 +342,7 @@ paths:
           description: "Successful List added"
           schema:
             $ref: "#/definitions/AddResponse"
-      x-swagger-router-controller: "AddList"
+      x-swagger-router-controller: "List"
 
   /lists/personal/:
     get:
@@ -539,6 +539,26 @@ paths:
       responses:
         204:
           description: "user deleted"
+      x-swagger-router-controller: "User"
+
+  /user/{name}/exists:
+    get:
+      description: "Determine if User exists by name"
+      operationId: "UserExists"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "name"
+        in: "path"
+        description: "User name"
+        required: true
+        type: "string"
+        format: "string"
+      responses:
+        200:
+          description: "User response"
+          schema:
+            $ref: "#/definitions/StatusResponse"
       x-swagger-router-controller: "User"
 
   /register/:
@@ -950,6 +970,12 @@ definitions:
       description:
         type: ['string','null']
         description: "List description"
+      captureTeam:
+        type: ['boolean', 'null']
+        description: "List team feature"
+      captureGM:
+        type: ['boolean', 'null']
+        description: "List GM feature"
 
   Listdata:
     type: "object"
@@ -969,6 +995,12 @@ definitions:
       rank:
         type: integer
         description: "Boid rank"
+      team:
+        type: string
+        description: "Team identification"
+      gm:
+        type: string
+        description: "GM identification"
 
   User:
     type: object
@@ -1011,3 +1043,10 @@ definitions:
       id:
         type: ['string','integer']
         description: "New record added"
+
+  StatusResponse:
+    type: "object"
+    properties:
+      id:
+        type: ['string','integer']
+        description: "Status returned"

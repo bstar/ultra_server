@@ -19,6 +19,22 @@ const GetAllUsers = (req, res) => {
     });
 };
 
+const UserExists = (req, res) => {
+  
+    const params = req.swagger.params;
+    const name = params.name.value;
+
+    models.user.findOne({
+        where: { name },
+    })
+    .then(user => {
+
+        if (user) return res.json({ exists: true });
+
+        return res.json({ exists: false }) 
+    });
+};
+
 const AddUser = (req, res) => {
 
     const params = req.swagger.params.user.value;
@@ -108,6 +124,7 @@ const Login = (req, res, next) => {
 
 module.exports = {
     GetAllUsers,
+    UserExists,
     AddUser,
     DeleteUserById,
     Register,

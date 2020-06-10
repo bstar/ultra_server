@@ -3,6 +3,31 @@ const passport = require('passport');
 const models = require('../models');
 
 
+const AddList = (req, res, next) => {
+
+  passport.authenticate('jwt', { session: false }, (err, user, info) => {
+
+    const params = req.swagger.params.list.value;
+
+    if (err) console.log(err);
+
+    params.userName = user.name;
+    params.key = params.key || 'default';
+    params.category = params.category || 'main';
+
+    if (user.type && user.type.match(/(^super$|^admin$)/)) {
+      params.type = params.type || 'personal';
+    } else {
+      params.type = 'personal'; // force personal lists for non-admins
+    }
+
+    models.list.create(params).then(list => {
+      res.status(200).json(list);
+    });
+
+  })(req, res, next);
+};
+
 const DeleteListById = (req, res) => {
 
   const params = req.swagger.params;
@@ -63,6 +88,7 @@ const GetPersonalLists = (req, res, next) => {
 };
 
 module.exports = {
+  AddList,
   DeleteListById,
   GetAllLists,
   GetPersonalLists,

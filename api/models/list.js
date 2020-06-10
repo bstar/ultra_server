@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     type: DataTypes.STRING,
     category: DataTypes.STRING,
     key: DataTypes.STRING,
+    captureTeam: DataTypes.BOOLEAN,
+    captureGM: DataTypes.BOOLEAN,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
   });
