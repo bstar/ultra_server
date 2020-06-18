@@ -472,6 +472,47 @@ paths:
             $ref: "#/definitions/AddResponse"
       x-swagger-router-controller: UpdateBoidRank
 
+  /list/{listId}/rank_batch:
+    put:
+      description: "Batch updates boid's rank in scoped list"
+      operationId: "UpdateBoidRankBatch"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "listId"
+          in: "path"
+          description: "ID of the list to get"
+          required: true
+          type: "string"
+          format: "string"
+      responses:
+        200:
+          description: "Successful Batch Boid rank update"
+          schema:
+            $ref: "#/definitions/AddResponse"
+      x-swagger-router-controller: Boid
+
+  /list/{listId}/add_data:
+    put:
+      description: "Add "
+      operationId: "UpdateBoidData"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "listId"
+          in: "path"
+          description: "ID of the list to get"
+          required: true
+          type: "string"
+          format: "string"
+      responses:
+        200:
+          description: "Successful Boid rank update"
+          schema:
+            $ref: "#/definitions/AddResponse"
+      x-swagger-router-controller: Boid
+
+
   # USERS -------------------------
   /users/:
     get:
@@ -1001,6 +1042,9 @@ definitions:
       gm:
         type: string
         description: "GM identification"
+      grade:
+        type: string
+        description: "Grade score"
 
   User:
     type: object

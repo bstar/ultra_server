@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
     rank: DataTypes.INTEGER,
     team: DataTypes.STRING,
     gm: DataTypes.STRING,
+    grade: DataTypes.STRING,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
   });
