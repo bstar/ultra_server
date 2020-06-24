@@ -440,6 +440,28 @@ paths:
             # $ref: "#/definitions/AddResponse"
       x-swagger-router-controller: "AddBoidsToList"
 
+  /list/{listId}/boid/{boidId}:
+    delete:
+      description: "Remove a remove boid from list"
+      operationId: "RemoveBoidFromList"
+      parameters:
+      - name: "listId"
+        in: "path"
+        description: "id of the List"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "boidId"
+        in: "path"
+        description: "id of the Boid"
+        required: true
+        type: "string"
+        format: "string"
+      responses:
+        204:
+          description: "boid removed from list"
+      x-swagger-router-controller: "List"
+
   /list/{listId}/boid/{boidId}/rank/{rank}:
     put:
       description: "Updates boid's rank in scoped list"
@@ -1017,6 +1039,13 @@ definitions:
       captureGM:
         type: ['boolean', 'null']
         description: "List GM feature"
+      rankId:
+        type: ['integer', 'null']
+        description: "ID of associated ranking list"
+      draftId:
+        type: ['integer', 'null']
+        description: "ID of associated draft list"
+
 
   Listdata:
     type: "object"

@@ -52,6 +52,7 @@ const GetAllLists = (req, res, next) => {
     if (user.type && user.type.match(/(^super$|^admin$)/)) {
       models.list.findAll({
         where: {},
+        include: [{ model: models.boid }],
         limit,
       })
       .then(lists => {
@@ -87,9 +88,27 @@ const GetPersonalLists = (req, res, next) => {
   })(req, res, next);
 };
 
+const RemoveBoidFromList = (req, res) => {
+
+  const params = req.swagger.params;
+  const listId = params.listId.value;
+  const boidId = params.boidId.value;
+
+  models.list.find({
+      where: { id: listId },
+      include: [{ model: models.boid }],
+    })
+    .then(list => {
+      list.removeBoid(boidId).then(result => {
+        res.json({ status: 'success', message: 'Player removed from list' });
+      });
+  });
+};
+
 module.exports = {
   AddList,
   DeleteListById,
   GetAllLists,
   GetPersonalLists,
+  RemoveBoidFromList,
 };
