@@ -56,6 +56,20 @@ paths:
             $ref: "#/definitions/AddResponse"
       x-swagger-router-controller: "AddBoid"
 
+  /boids/batch:
+    put:
+      description: "Batch updates boid's attributes"
+      operationId: "UpdateBoidBatch"
+      produces:
+        - "application/json"
+      parameters: []
+      responses:
+        200:
+          description: "Successful Batch Boid update"
+          schema:
+            $ref: "#/definitions/AddResponse"
+      x-swagger-router-controller: Boid
+
   /boid/{id}:
     get:
       description: "Retrieve a single boid by id"
@@ -352,6 +366,20 @@ paths:
       responses:
         200:
           description: "An array of personal lists"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/List"
+      x-swagger-router-controller: "List"
+
+  /lists/global/:
+    get:
+      description: "This endpoint returns all global lists"
+      operationId: "GetGlobalLists"
+      parameters: []
+      responses:
+        200:
+          description: "An array of global lists"
           schema:
             type: "array"
             items:
@@ -806,6 +834,24 @@ definitions:
       squad_number:
         type: integer
         description: "Squad Number"
+      iss_ranking:
+        type: ['integer', 'null']
+        description: "ISS Ranking"
+      com_ranking:
+        type: ['integer', 'null']
+        description: "COM Ranking"
+      age_ranking:
+        type: ['integer', 'null']
+        description: "Age/Over Ranking"
+      off_ranking:
+        type: ['integer', 'null']
+        description: "Weighted Offensive Ranking"
+      draft_ranking:
+        type: ['integer', 'null']
+        description: "Draft Ranking"
+      year_drafted:
+        type: ['integer', 'null']
+        description: "Year drafted"
 
   Boids:
     type: array
@@ -1039,41 +1085,58 @@ definitions:
       captureGM:
         type: ['boolean', 'null']
         description: "List GM feature"
+      captureStars:
+        type: ['boolean', 'null']
+        description: "Player stars"
+      captureNotes:
+        type: ['boolean', 'null']
+        description: "Player notes"
       rankId:
         type: ['integer', 'null']
         description: "ID of associated ranking list"
       draftId:
         type: ['integer', 'null']
         description: "ID of associated draft list"
-
+      year:
+        type: ['integer', 'null']
+        description: "Year list is scoped to"
 
   Listdata:
     type: "object"
     properties:
       createdAt:
-        type: string
+        type: ['string','null']
         format: date-time
       updatedAt:
-        type: string
+        type: ['string','null']
         format: date-time
       boidId:
-        type: string
+        type: ['string','null']
         description: "Reference to Boid"
       listId:
-        type: integer
+        type: ['integer', 'null']
         description: "Reference to a List"
       rank:
-        type: integer
+        type: ['integer', 'null']
         description: "Boid rank"
       team:
-        type: string
+        type: ['string','null']
         description: "Team identification"
       gm:
-        type: string
+        type: ['string','null']
         description: "GM identification"
       grade:
-        type: string
+        type: ['string','null']
         description: "Grade score"
+      stars:
+        type: ['integer', 'null']
+        description: "Number of stars"
+      notes:
+        type: ['string','null']
+        description: "Notes on player"
+      score:
+        type: ['number', 'null']
+        description: "Custom player score"
 
   User:
     type: object

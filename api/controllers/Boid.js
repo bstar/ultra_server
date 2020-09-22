@@ -36,8 +36,8 @@ const UpdateBoidData = (req, res, next) => {
                 }
 
                 return res.status(401).json({ status: 'unauthorized' });
-            }
-            catch(error) {
+
+            } catch (error) {
                 res.json({ status: 'error', message: 'Rank could not be set.' });
             }
         });
@@ -76,10 +76,42 @@ const UpdateBoidRankBatch = (req, res, next) => {
                 });
 
                 res.json({ status: 'success', message: 'Boid rankings updated' });
-}
-            catch (error) {
+
+            } catch (error) {
                 res.json({ status: 'failure', message: 'Ranks could not be set', error });
             }
+        });
+    })(req, res, next);
+};
+
+const UpdateBoidBatch = (req, res, next) => {
+
+    passport.authenticate('jwt', { session: false }, (err, user, info) => {
+
+        if (err) return res.json({ status: 'error', message: err });
+
+        const players = req.body.players;
+
+        players.map(player => {
+            models.boid.find({
+                where: { id: player.id },
+                limit: 1,
+            })
+            .then(boid => {
+
+                try {
+                    Object.keys(player).map(key => {
+
+                        if (key !== 'id') boid[key] = player[key];
+                    });
+
+                    boid.save();
+                    res.json({ status: 'success', message: 'Boid batch data updated' });
+
+                } catch (error) {
+                    res.json({ status: 'failure', message: 'Data could not be set', error });
+                }
+            });
         });
     })(req, res, next);
 };
@@ -87,4 +119,5 @@ const UpdateBoidRankBatch = (req, res, next) => {
 module.exports = {
   UpdateBoidData,
   UpdateBoidRankBatch,
+  UpdateBoidBatch,
 };

@@ -41,6 +41,13 @@ module.exports = (sequelize, DataTypes) => {
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
 
+    iss_ranking: DataTypes.INTEGER,
+    com_ranking: DataTypes.INTEGER,
+    age_ranking: DataTypes.INTEGER,
+    off_ranking: DataTypes.INTEGER,
+    draft_ranking: DataTypes.INTEGER,
+    year_drafted: DataTypes.INTEGER,
+
     // Hidden reputation stats
     // home_reputation: DataTypes.INTEGER,
     // current_reputation: DataTypes.INTEGER,

@@ -12,8 +12,11 @@ module.exports = (sequelize, DataTypes) => {
     captureTeam: DataTypes.BOOLEAN,
     captureGM: DataTypes.BOOLEAN,
     captureGrade: DataTypes.BOOLEAN,
+    captureStars: DataTypes.BOOLEAN,
+    captureNotes: DataTypes.BOOLEAN,
     draftId: DataTypes.INTEGER,
     rankId: DataTypes.INTEGER,
+    year: DataTypes.INTEGER,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
   });

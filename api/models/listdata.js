@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
     team: DataTypes.STRING,
     gm: DataTypes.STRING,
     grade: DataTypes.STRING,
+    stars: DataTypes.INTEGER,
+    notes: DataTypes.TEXT,
+    score: DataTypes.REAL,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
   });

@@ -78,7 +78,34 @@ const GetPersonalLists = (req, res, next) => {
       res.send(info.message);
     } else {
       models.list.findAll({
-        where: { type: 'personal', userName: user.name },
+        where: { key: 'personal', userName: user.name },
+        include: [{ model: models.boid }],
+        limit,
+      })
+      .then(lists => {
+
+        res.send(lists);
+      });
+    }
+  })(req, res, next);
+};
+
+const GetGlobalLists = (req, res, next) => {
+
+  passport.authenticate('jwt', { session: false }, (err, user, info) => {
+
+    const params = req.query;
+    const limit = params.limit ? parseInt(params.limit, 10) : 50;
+
+    if (err) console.log(err);
+
+    if (info != undefined) {
+      console.log(info.message);
+      res.send(info.message);
+    } else {
+      models.list.findAll({
+        where: { key: 'global' },
+        include: [{ model: models.boid }],
         limit,
       })
       .then(lists => {
@@ -110,5 +137,6 @@ module.exports = {
   DeleteListById,
   GetAllLists,
   GetPersonalLists,
+  GetGlobalLists,
   RemoveBoidFromList,
 };
