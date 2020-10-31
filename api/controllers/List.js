@@ -12,11 +12,11 @@ const AddList = (req, res, next) => {
     if (err) console.log(err);
 
     params.userName = user.name;
-    params.key = params.key || 'default';
+    params.key = params.key || 'personal';
     params.category = params.category || 'main';
 
     if (user.type && user.type.match(/(^super$|^admin$)/)) {
-      params.type = params.type || 'personal';
+      params.type = params.type || 'default';
     } else {
       params.type = 'personal'; // force personal lists for non-admins
     }
