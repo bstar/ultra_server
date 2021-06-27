@@ -15,7 +15,7 @@ const AddList = (req, res, next) => {
     params.key = params.key || 'personal';
     params.category = params.category || 'main';
 
-    if (user.type && user.type.match(/(^super$|^admin$)/)) {
+    if (['admin', 'super'].includes(user.type)) {
       params.type = params.type || 'default';
     } else {
       params.type = 'personal'; // force personal lists for non-admins
@@ -28,6 +28,7 @@ const AddList = (req, res, next) => {
   })(req, res, next);
 };
 
+// TODO needs passport auth and user filter
 const DeleteListById = (req, res) => {
 
   const params = req.swagger.params;
@@ -49,7 +50,7 @@ const GetAllLists = (req, res, next) => {
 
     if (err) console.log(err);
 
-    if (user.type && user.type.match(/(^super$|^admin$)/)) {
+    if (['admin', 'super'].includes(user.type)) {
       models.list.findAll({
         where: {},
         include: [{ model: models.boid }],
@@ -74,7 +75,6 @@ const GetPersonalLists = (req, res, next) => {
     if (err) console.log(err);
 
     if (info != undefined) {
-      console.log(info.message);
       res.send(info.message);
     } else {
       models.list.findAll({
@@ -115,6 +115,7 @@ const GetGlobalLists = (req, res, next) => {
   })(req, res, next);
 };
 
+// TODO needs passport auth and user filter
 const RemoveBoidFromList = (req, res) => {
 
   const params = req.swagger.params;

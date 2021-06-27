@@ -113,7 +113,7 @@ const Login = (req, res, next) => {
                     res.status(200).send({
                         auth: true,
                         token,
-                        message: 'user found & logged in',
+                        message: `User (${user.name}) found & logged in.`,
                     });
                 });
             });

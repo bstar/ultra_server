@@ -18,7 +18,7 @@ const UpdateBoidData = (req, res, next) => {
         models.list.find({
             where: { id: listId },
             include: [{ model: models.boid }],
-            limit: 1
+            limit: 1,
         })
         .then(list => {
 
@@ -76,7 +76,6 @@ const UpdateBoidRankBatch = (req, res, next) => {
                 });
 
                 res.json({ status: 'success', message: 'Boid rankings updated' });
-
             } catch (error) {
                 res.json({ status: 'failure', message: 'Ranks could not be set', error });
             }
@@ -107,7 +106,6 @@ const UpdateBoidBatch = (req, res, next) => {
 
                     boid.save();
                     res.json({ status: 'success', message: 'Boid batch data updated' });
-
                 } catch (error) {
                     res.json({ status: 'failure', message: 'Data could not be set', error });
                 }
