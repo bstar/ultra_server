@@ -37,19 +37,17 @@ const AddBoidsToList = (req, res) => {
   const listId = params.id.value;
   const boidIds = params.boidIds.value.boidIds;
 
-  console.log("IDS", boidIds);
-
   models.list.find({
       where: { id: listId },
       include: [{ model: models.boid }],
     })
     .then(list => {
       list.addBoids(boidIds).then(result => {
-        updateRanks(listId, boidIds)
+        if (boidIds.length > 1) updateRanks(listId, boidIds);
         res.json(result);
       });
   }).then(() => {
-    console.log("Clone Completed.");
+    console.log("All Boids Added to List.");
   });
 };
 
