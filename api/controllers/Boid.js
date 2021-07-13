@@ -14,7 +14,7 @@ const UpdateBoidData = (req, res, next) => {
         const params = req.swagger.params;
         const listId = params.listId.value;
         const { boidId, rank, team, gm, grade } = req.body;
-    
+
         models.list.find({
             where: { id: listId },
             include: [{ model: models.boid }],
@@ -61,13 +61,15 @@ const UpdateBoidRankBatch = (req, res, next) => {
             limit: 1
         })
         .then(list => {
+            console.log("UPDATING ORDER", list.name)
 
             try {
                 const boids = list.boids;
 
                 ids.map(id => {
-                    
+
                     const boid = boids.find(boid => boid.id === id);
+                    console.log("IDS", id, boid.name);
 
                     if (boid) {
                         boid.listdata.rank = players[boid.id];
@@ -100,6 +102,7 @@ const UpdateBoidBatch = (req, res, next) => {
 
                 try {
                     Object.keys(player).map(key => {
+                        console.log("KEY", key, player[key])
 
                         if (key !== 'id') boid[key] = player[key];
                     });
