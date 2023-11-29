@@ -1,3 +1,4 @@
+This repos is here for archival purposes only.  This is a prototype API for managing data needs for a hockey simulation league.
 # Ultra Server API
 
 ### Stack
